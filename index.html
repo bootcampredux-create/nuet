@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nigatola University of Engineering & Technology (NUET)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Hind Siliguri', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter & Hind Siliguri (Bengali) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .transition-theme {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans transition-theme antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ================= HEADER & NAVBAR ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-theme">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Title -->
+        <a href="#" class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-brand-600 dark:bg-brand-500 text-white flex items-center justify-center font-black text-xl shadow-md">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <div class="font-extrabold text-lg sm:text-xl tracking-tight leading-tight text-slate-900 dark:text-white" data-en="NUET" data-bn="নুয়েট">
+              NUET
+            </div>
+            <div class="text-[11px] sm:text-xs font-semibold text-slate-500 dark:text-slate-400 leading-none mt-0.5" 
+                 data-en="Nigatola University of Engineering & Technology" 
+                 data-bn="নিগাতোলা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়">
+              Nigatola University of Engineering & Technology
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold">
+          <a href="#projects" class="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition" data-en="Projects" data-bn="প্রজেক্টসমূহ">Projects</a>
+          <a href="#departments" class="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition" data-en="Departments" data-bn="বিভাগসমূহ">Departments</a>
+          <a href="#faculty" class="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition" data-en="Faculty" data-bn="শিক্ষকমণ্ডলী">Faculty</a>
+          <a href="#gallery" class="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition" data-en="Gallery" data-bn="গ্যালারি">Gallery</a>
+          <a href="#writing" class="text-slate-700 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition" data-en="Writing" data-bn="লেখা ও বার্তা">Writing</a>
+        </nav>
+
+        <!-- Right Controls: Language Toggle, Day/Dark Mode Toggle, Apply Now -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Language Toggle (EN / বাংলা) -->
+          <button id="langToggleBtn" onclick="toggleLanguage()" class="px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:border-brand-500 transition flex items-center gap-1.5" title="Switch Language">
+            <i class="fa-solid fa-language text-sm text-brand-600 dark:text-brand-400"></i>
+            <span id="langLabel">বাংলা</span>
+          </button>
+
+          <!-- Day / Dark Mode Toggle with Visible Text Beside the Button -->
+          <button id="themeToggleBtn" onclick="toggleTheme()" class="px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500 transition flex items-center gap-2 text-xs font-bold" aria-label="Toggle Theme">
+            <i id="themeIcon" class="fa-solid fa-sun text-amber-500"></i>
+            <span id="themeLabel" class="capitalize tracking-wide">Day</span>
+          </button>
+
+          <!-- Apply Now CTA -->
+          <button onclick="openApplyModal()" class="px-3.5 sm:px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white text-xs sm:text-sm font-bold shadow transition flex items-center gap-1.5">
+            <span data-en="Apply Now" data-bn="ভর্তি আবেদন">Apply Now</span>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <i id="menuIcon" class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-4 space-y-3 text-sm font-medium">
+      <a href="#projects" onclick="toggleMobileMenu()" class="block py-1.5 text-slate-700 dark:text-slate-300" data-en="Projects" data-bn="প্রজেক্টসমূহ">Projects</a>
+      <a href="#departments" onclick="toggleMobileMenu()" class="block py-1.5 text-slate-700 dark:text-slate-300" data-en="Departments" data-bn="বিভাগসমূহ">Departments</a>
+      <a href="#faculty" onclick="toggleMobileMenu()" class="block py-1.5 text-slate-700 dark:text-slate-300" data-en="Faculty" data-bn="শিক্ষকমণ্ডলী">Faculty</a>
+      <a href="#gallery" onclick="toggleMobileMenu()" class="block py-1.5 text-slate-700 dark:text-slate-300" data-en="Gallery" data-bn="গ্যালারি">Gallery</a>
+      <a href="#writing" onclick="toggleMobileMenu()" class="block py-1.5 text-slate-700 dark:text-slate-300" data-en="Writing" data-bn="লেখা ও বার্তা">Writing</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="py-14 sm:py-20 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 transition-theme text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300 border border-brand-200 dark:border-brand-800 mb-4">
+        <i class="fa-solid fa-compass-drafting"></i>
+        <span data-en="Engineering Excellence & Innovation" data-bn="প্রকৌশল উৎকর্ষ ও উদ্ভাবন">Engineering Excellence & Innovation</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white"
+          data-en="Nigatola University of Engineering & Technology"
+          data-bn="নিগাতোলা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়">
+        Nigatola University of Engineering & Technology
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
+         data-en="Why be afraid by becoming Niga, we will conquer the world by becoming Niga, the oldest institution related to Niga skills in the world."
+         data-bn="নিগা হয়ে কিসের ভয়, নিগা হয়ে করিবো বিশ্বজয় ,সারাবিশ্বের শীর্ষস্থানীয় নিগার কৌশল-সম্পর্কিত প্রাচীনতম প্রতিষ্ঠান।">
+        Dedicated to hands-on engineering, creative hardware innovation, and empowering students to build future-ready solutions.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= 1. PROJECTS ================= -->
+  <section id="projects" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 transition-theme scroll-mt-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+            data-en="Students' Projects"
+            data-bn="শিক্ষার্থীদের প্রজেক্টসমূহ">
+          Students' Projects
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+           data-en="Watch the latest project presentation built directly in our university labs."
+           data-bn="আমাদের বিশ্ববিদ্যালয়ের ল্যাবে তৈরি শিক্ষার্থীদের উদ্ভাবনী প্রজেক্টের ভিডিও উপস্থাপনা দেখুন।">
+          Watch the latest project presentation built directly in our university labs.
+        </p>
+      </div>
+
+      <!-- Local HTML5 Video Player -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-xl transition-theme">
+        <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-inner">
+          <video 
+            id="studentVideo" 
+            controls 
+            preload="metadata" 
+            poster="image/project-poster.jpg" 
+            class="w-full h-full object-cover">
+            <source src="video/student-project.mp4" type="video/mp4">
+            <source src="video/student-project.webm" type="video/webm">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex items-start gap-3 text-xs">
+          <i class="fa-solid fa-circle-info text-brand-600 dark:text-brand-400 text-base mt-0.5 shrink-0"></i>
+          <div>
+          
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. DEPARTMENTS ================= -->
+  <section id="departments" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 transition-theme scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+            data-en="Our Niggaficated departments"
+            data-bn="আমাদের নিগারিফাইড ডিপার্টমেন্টগুলো">
+          Academic Departments
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+           data-en="Undergraduate and graduate faculties driving engineering education at NUET."
+           data-bn="নুয়েটের আধুনিক প্রযুক্তি শিক্ষার মূল ভিত্তি আমাদের নিগাফাইড প্রকৌশল বিভাগগুলো।">
+          Undergraduate and graduate faculties driving engineering education at NUET.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- CSE -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white"
+              data-en="Nigacomputer Science & Engineering"
+              data-bn="নিগাম্পিউটার সায়েন্স অ্যান্ড ইঞ্জিনিয়ারিং">
+            Computer Science & Engineering
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed"
+             data-en="Noftware engineering, embedded niggacontrollers, Niggafication systems, and intelligent Niggerithms."
+             data-bn="নফ্টওয়্যার ইঞ্জিনিয়ারিং, এমবেডেড নিগ্যাকন্ট্রোলার, নিগ্যাফিকেশন সিস্টেম, এবং বুদ্ধিমান নিগারিদম।।">
+            Software engineering, embedded microcontrollers, operating systems, and intelligent algorithms.
+          </p>
+        </div>
+
+
+        <!-- PHL -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white"
+              data-en="Niggalosophy & Niggalogy Engineering"
+              data-bn="নিগগালোসফি এবং নিগগালোজি ইঞ্জিনিয়ারিং">
+            Computer Science & Engineering
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed"
+             data-en="privilege of niggas, Nigga Farming, Transformation to brown "
+             data-bn="নিগাসের বিশেষাধিকার, নিগ্গা চাষ, বাদামী রূপান্তর।">
+            Software engineering, embedded microcontrollers, operating systems, and intelligent algorithms.
+          </p>
+        </div>
+
+        <!-- EEE -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white"
+              data-en="Neglectrical and Nigatronic Engineering"
+              data-bn="নিগালেকট্রিক্যাল অ্যান্ড নিগাট্রনিক ইঞ্জিনিয়ারিং">
+            Electrical & Electronic Engineering
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed"
+             data-en="Niga Communication, Niga Renewable Energy, and Modern Niga Circuit Design"
+             data-bn="পাওয়ার নিগালেকট্রনিক্স, নিগাকমিউনিকেশন, নিগাবায়নযোগ্য শক্তি এবং আধুনিক নিগাসার্কিট ডিজাইন।">
+            Power electronics, telecommunications, renewable energy systems, and microcircuit prototyping.
+          </p>
+        </div>
+
+        <!-- ME -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-gears"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white"
+              data-en="Nechanical Engineering"
+              data-bn="নিগাকানিক্যাল ইঞ্জিনিয়ারিং">
+            Nechanical Engineering
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed"
+             data-en="Niggatics automation, thermal nigganics, precision niggafication, and fluid niggapower machinery."
+             data-bn="নিগ্যাটিক্স অটোমেশন, থার্মাল নিগ্যানিক্স, প্রিসিশন নিগ্গাফিকেশন, এবং ফ্লুইড নিগ্যাপাওয়ার মেশিনারি।">
+            Niggatics automation, thermal nigganics, precision niggafication, and fluid niggapower machinery.
+          </p>
+        </div>
+
+        <!-- CE -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white"
+              data-en="Nivil Engineering"
+              data-bn="নিভিল ইঞ্জিনিয়ারিং">
+            Nivil Engineering
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed"
+             data-en="Smart nigga city planning, soil niggatechnics, Geo-niggatechnical Engineering, and Structural Niggaficaation."
+             data-bn="স্মার্ট নিগ্গা সিটি প্ল্যানিং, সয়েল নিগ্যাটেকনিক্স, জিও-নিগাটেকনিক্যাল ইঞ্জিনিয়ারিং এবং স্ট্রাকচারাল নিগাফিকেশন।।">
+            Sustainable infrastructure, soil geotechnics, bridge design, and smart city urban planning.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. FACULTY ================= -->
+  <section id="faculty" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 transition-theme scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+            data-en="Faculty Niggas"
+            data-bn="সম্মানিত নিগাক্ষকবৃন্দ">
+          Faculty Niggas
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+           data-en="Niggaficated professors, mentors, and lab directors leading departments at NUET."
+           data-bn="নুয়েটের বিভাগসমূহ পরিচালনাকারী সম্মানিত নিগা ও নিগাগবেষকবৃন্দ।">
+          Niggaficated professors, mentors, and lab directors leading departments at NUET.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Prof 1 -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center text-2xl font-bold shrink-0">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white"
+                data-en="Alham brown"
+                data-bn="আলহাম ব্রাউন">
+               Spacacho Leco
+            </h3>
+            <span class="text-xs font-semibold text-brand-600 dark:text-brand-400 block"
+                  data-en="Professor & Head, NNE"
+                  data-bn="প্রফেসর ও বিভাগীয় প্রধান, নিনিই">
+              Professor & Head, NSE
+            </span>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              <i class="fa-solid fa-envelope mr-1 text-slate-400"></i> alham@nuet.ac.bd
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 pt-1"
+               data-en="Specialization: privilege of niggas, Nigga Farming, Transformation to brown।"
+               data-bn="গবেষণা ক্ষেত্র: নিগাসের বিশেষাধিকার, নিগ্গা চাষ, বাদামী রূপান্তর।">
+              Specialization: Distributed Systems & Embedded Hardware
+            </p>
+          </div>
+        </div>
+
+        <!-- Prof 2 -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold shrink-0">
+            <i class="fa-solid fa-user-graduate"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white"
+                data-en="Prof. Nigga Taseen"
+                data-bn="প্রফেসর নিগা তাসিন">
+              Prof. Shreya Roy
+            </h3>
+            <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 block"
+                  data-en="Dean & Professor, EEE"
+                  data-bn="ডিন ও প্রফেসর, ট্রিপল-ই">
+              Dean & Professor, EEE
+            </span>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              <i class="fa-solid fa-envelope mr-1 text-slate-400"></i> taseen@nuet.ac.bd
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 pt-1"
+               data-en="Specialization: Niga Communication, Niga Renewable Energy, and Modern Niga Circuit Design"
+               data-bn="গবেষণা ক্ষেত্র: পাওয়ার নিগালেকট্রনিক্স, নিগাকমিউনিকেশন, নিগাবায়নযোগ্য শক্তি এবং আধুনিক নিগাসার্কিট ডিজাইন।">
+              Specialization: High-Power Circuits & Microelectronics
+            </p>
+          </div>
+        </div>
+
+        <!-- Prof 3 -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold shrink-0">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white"
+                data-en="Prottay Nigga Mondal"
+                data-bn="প্রত্যয় নিগা মন্ডল">
+              Dr. A. K. Chowdhury
+            </h3>
+            <span class="text-xs font-semibold text-rose-600 dark:text-rose-400 block"
+                  data-en="Associate Professor, ME"
+                  data-bn="সহযোগী অধ্যাপক, মেকানিক্যাল">
+              Associate Professor, ME
+            </span>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              <i class="fa-solid fa-envelope mr-1 text-slate-400"></i> prottay@nuet.ac.bd
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 pt-1"
+               data-en="Specialization: Niggatics automation, thermal nigganics, precision niggafication, and fluid niggapower machinery."
+               data-bn="গবেষণা ক্ষেত্র: নিগ্যাটিক্স অটোমেশন, থার্মাল নিগ্যানিক্স, প্রিসিশন নিগ্গাফিকেশন, এবং ফ্লুইড নিগ্যাপাওয়ার মেশিনারি।">
+              Specialization: ।
+            </p>
+          </div>
+        </div>
+
+        <!-- Prof 4 -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold shrink-0">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white"
+                data-en="Engr. Semon Nigga"
+                data-bn="প্রকৌ. সেমন নিগা ">
+              Engr. Tariqul Islam
+            </h3>
+            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 block"
+                  data-en="Assistant Professor, Nivil"
+                  data-bn="সহকারী অধ্যাপক, সিভিল">
+              Assistant Professor, Civil
+            </span>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              <i class="fa-solid fa-envelope mr-1 text-slate-400"></i> semon@nuet.ac.bd
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 pt-1"
+               data-en="Specialization: Smart nigga city planning, soil niggatechnics, Geo-niggatechnical Engineering, and Structural Niggaficaation."
+               data-bn="গবেষণা ক্ষেত্র: স্মার্ট নিগ্গা সিটি প্ল্যানিং, সয়েল নিগ্যাটেকনিক্স, জিও-নিগাটেকনিক্যাল ইঞ্জিনিয়ারিং এবং স্ট্রাকচারাল নিগাফিকেশন।">
+              Specialization: Structural Mechanics & Smart Concrete
+            </p>
+          </div>
+        </div>
+
+        <!-- Prof 5 -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-2xl font-bold shrink-0">
+            <i class="fa-solid fa-laptop-code"></i>
+          </div>
+          <div class="space-y-1">
+            <h3 class="font-bold text-base text-slate-900 dark:text-white"
+                data-en="Spacacho Leco"
+                data-bn="স্পাকাচো লেকো">
+              Mehzabin Noor
+            </h3>
+            <span class="text-xs font-semibold text-purple-600 dark:text-purple-400 block"
+                  data-en="Senior Lecturer, NSE"
+                  data-bn="সিনিয়র লেকচারার, নিএসই">
+              Senior Lecturer, CSE
+            </span>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              <i class="fa-solid fa-envelope mr-1 text-slate-400"></i> spacacho@nuet.ac.bd
+            </p>
+            <p class="text-xs text-slate-600 dark:text-slate-400 pt-1"
+               data-en="Specialization: Noftware engineering, embedded niggacontrollers, Niggafication systems, and intelligent Niggerithms."
+               data-bn="গবেষণা ক্ষেত্র: নফ্টওয়্যার ইঞ্জিনিয়ারিং, এমবেডেড নিগ্যাকন্ট্রোলার, নিগ্যাফিকেশন সিস্টেম, এবং বুদ্ধিমান নিগারিদম।।">
+              Specialization: Computer Vision & AI Algorithms
+            </p>
+          </div>
+        </div>
+
+       
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. GALLERY ================= -->
+  <section id="gallery" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 transition-theme scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+            data-en="Campus & Lab Gallery"
+            data-bn="ক্যাম্পাস ও ল্যাব গ্যালারি">
+          Campus & Lab Gallery
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+           data-en="Photos from our laboratories, workshops, and student campus life."
+           data-bn="আমাদের গবেষণাগার, ওয়ার্কশপ এবং প্রাণবন্ত ক্যাম্পাস জীবনের কিছু স্থিরচিত্র।">
+          Photos from our laboratories, workshops, and student campus life.
+        </p>
+      </div>
+
+      <!-- Local Images Grid (image/ folder with fallback) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Image 1 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery1.jpg', 'Circuit & Prototyping Lab', 'সার্কিট ও প্রোটোটাইপ ল্যাব')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery1.jpg" 
+              alt="Circuit Lab" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery1.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="Circuit & Prototyping Lab" data-bn="সার্কিট ও প্রোটোটাইপ ল্যাব">Circuit & Prototyping Lab</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery1.jpg" data-bn="ফাইল: image/gallery1.jpg">File: image/gallery1.jpg</p>
+          </div>
+        </div>
+
+        <!-- Image 2 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery2.jpg', 'Robotics & Fabrication Workshop', 'রোবোটিক্স ও ফেব্রিকেশন ওয়ার্কশপ')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery2.jpg" 
+              alt="Robotics Workshop" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery2.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="Robotics & Fabrication Workshop" data-bn="রোবোটিক্স ও ফেব্রিকেশন ওয়ার্কশপ">Robotics & Fabrication Workshop</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery2.jpg" data-bn="ফাইল: image/gallery2.jpg">File: image/gallery2.jpg</p>
+          </div>
+        </div>
+
+        <!-- Image 3 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery3.jpg', 'High-Performance Computing Lab', 'হাই-পারফরম্যান্স কম্পিউটিং ল্যাব')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery3.jpg" 
+              alt="High-Performance Computing Lab" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery3.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="High-Performance Computing Lab" data-bn="হাই-পারফরম্যান্স কম্পিউটিং ল্যাব">High-Performance Computing Lab</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery3.jpg" data-bn="ফাইল: image/gallery3.jpg">File: image/gallery3.jpg</p>
+          </div>
+        </div>
+
+        <!-- Image 4 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery4.jpg', 'Main Academic Building', 'মূল একাডেমিক ভবন')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery4.jpg" 
+              alt="Main Academic Building" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery4.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="Main Academic Building" data-bn="মূল একাডেমিক ভবন">Main Academic Building</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery4.jpg" data-bn="ফাইল: image/gallery4.jpg">File: image/gallery4.jpg</p>
+          </div>
+        </div>
+
+        <!-- Image 5 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery5.jpg', 'Central Library & Reading Hall', 'সেন্ট্রাল লাইব্রেরি ও স্টাডি হল')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery5.jpg" 
+              alt="Central Library" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery5.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="Central Library & Reading Hall" data-bn="সেন্ট্রাল লাইব্রেরি ও স্টাডি হল">Central Library & Reading Hall</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery5.jpg" data-bn="ফাইল: image/gallery5.jpg">File: image/gallery5.jpg</p>
+          </div>
+        </div>
+
+        <!-- Image 6 -->
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer" onclick="openPhoto('image/gallery6.jpg', 'Campus Cafeteria & Garden', 'ক্যাম্পাস ক্যাফেটেরিয়া ও বাগান')">
+          <div class="aspect-video w-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <img 
+              src="image/gallery6.jpg" 
+              alt="Campus Cafeteria" 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=image/gallery6.jpg'"
+            >
+          </div>
+          <div class="p-4">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-en="Campus Cafeteria & Garden" data-bn="ক্যাম্পাস ক্যাফেটেরিয়া ও বাগান">Campus Cafeteria & Garden</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-en="File: image/gallery6.jpg" data-bn="ফাইল: image/gallery6.jpg">File: image/gallery6.jpg</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. BILINGUAL WRITING SECTION ================= -->
+  <section id="writing" class="py-16 sm:py-20 border-b border-slate-200 dark:border-slate-800 transition-theme scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"
+            data-en="University Writing & Messages"
+            data-bn="বিশ্ববিদ্যালয়ের লেখা ও বার্তা">
+          University Writing & Messages
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+           data-en="Official messages and academic thoughts in both English and বাংলা."
+           data-bn="ইংরেজি এবং বাংলা উভয় ভাষায় বিশ্ববিদ্যালয়ের বার্তা ও প্রাসঙ্গিক লেখা।">
+          Official messages and academic thoughts in both English and বাংলা.
+        </p>
+      </div>
+
+      <!-- Side-by-Side Dual-Language Writing Columns -->
+      <div class="grid lg:grid-cols-2 gap-8">
+
+        <!-- English Column -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+          <div class="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <span class="px-3 py-1 rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 text-xs font-black uppercase">
+              English Writing
+            </span>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Vice-Chancellor's Message</h3>
+          </div>
+
+          <div class="text-sm text-slate-600 dark:text-slate-300 space-y-4 leading-relaxed">
+            <p>
+              "Welcome to Nigatola University of Engineering and Technology (NUET). What are you afraid of, Niga will conquer the world | NUET is the world's oldest Niga technique-related institution."
+            </p>
+            <p>
+              "One Niga in the outside, millions of Nigas in every house | Niga controls the earth, Niga is the future. NUET Nigas. Be a Niga, stay happy."
+            </p>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 space-y-2.5 text-xs">
+            <div class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-bullhorn text-brand-600"></i>
+              <span>Active Circulars (English):</span>
+            </div>
+            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400">
+              <li>Final semester engineering project evaluation starts on Nov 15.</li>
+              <li>Robotics Lab 2 equipment access schedule is updated.</li>
+              <li>Central Library study room timings extended till 10:00 PM.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bangla Column -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-sm space-y-6">
+          <div class="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+            <span class="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 text-xs font-black uppercase">
+              বাংলা বার্তা ও লেখা
+            </span>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">উপাচার্যের বার্তা</h3>
+          </div>
+
+          <div class="text-sm text-slate-600 dark:text-slate-300 space-y-4 leading-relaxed">
+            <p>
+              "নিগাতোলা প্রকৌশল ও প্রযুক্তি বিশ্ববিদ্যালয়ে (নুয়েট) আপনাকে স্বাগতম। নিগা হয়ে কিসের ভয়, নিগা হয়ে করিবো বিশ্বজয় | সারাবিশ্বের শীর্ষস্থানীয় নিগার কৌশল-সম্পর্কিত প্রাচীনতম প্রতিষ্ঠান NUET।"
+            </p>
+            <p>
+              "এক নিগা লোকান্তরে লক্ষ নিগা ঘরে ঘরে | পৃথিবী সামলায় নিগা,  নিগাই ভবিষ্যৎ। NUET নিগাদের। নিগা হও, খুশি থাকো।"
+            </p>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700/60 space-y-2.5 text-xs">
+            <div class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-bullhorn text-emerald-600"></i>
+              <span>চলমান নোটিশসমূহ (বাংলা):</span>
+            </div>
+            <ul class="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400">
+              <li>ফল সেমিস্টার ভর্তি কার্যক্রম ও ফর্ম পূরণ শুরু হয়েছে।</li>
+              <li>বার্ষিক বিজ্ঞান ও প্রকৌশল উদ্ভাবন মেলার নিবন্ধন উন্মুক্ত।</li>
+              <li>ক্যাম্পাস ক্যাফেটেরিয়া ও সেন্ট্রাল লাইব্রেরির সময়সূচি হালনাগাদ করা হয়েছে।</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 6. APPLY NOW MODAL ================= -->
+  <div id="applyModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 text-left transition-theme">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 mb-4">
+        <div>
+          <span class="text-[10px] font-bold uppercase text-brand-600 dark:text-brand-400" data-en="Admissions Desk" data-bn="ভর্তি শাখা">Admissions Desk</span>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white" data-en="Apply for Admission" data-bn="ভর্তি আবেদন ফরম">Apply for Admission</h3>
+        </div>
+        <button onclick="closeApplyModal()" class="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-xl font-bold p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleApplySubmit(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-en="Full Name *" data-bn="আবেদনকারীর পুরো নাম *">Full Name *</label>
+          <input type="text" required placeholder="e.g. Tanvir Ahmed" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-en="Selected Department *" data-bn="পছন্দের প্রকৌশল বিভাগ *">Selected Department *</label>
+          <select required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <option>Computer Science & Engineering (CSE)</option>
+            <option>Electrical & Electronic Engineering (EEE)</option>
+            <option>Mechanical Engineering (ME)</option>
+            <option>Civil Engineering (CE)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1" data-en="Phone / Contact Number *" data-bn="ফোন বা যোগাযোগের নম্বর *">Phone / Contact Number *</label>
+          <input type="tel" required placeholder="+880 1..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeApplyModal()" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" data-en="Cancel" data-bn="বাতিল">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-black shadow" data-en="Submit Application" data-bn="আবেদন জমা দিন">Submit Application</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full">
+      <button onclick="closePhoto()" class="absolute -top-10 right-0 text-white hover:text-brand-400 text-2xl font-bold p-2" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800">
+        <img id="lightboxImg" src="" alt="Enlarged" class="w-full max-h-[75vh] object-contain bg-black">
+        <div class="p-4 bg-slate-900 text-white">
+          <h4 id="lightboxTitle" class="font-bold text-base">Photo</h4>
+          <p id="lightboxDesc" class="text-xs text-slate-400 mt-0.5">Description</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white dark:bg-slate-800 px-4 py-3 rounded-2xl shadow-2xl text-xs flex items-center gap-2.5 transform translate-y-28 transition-transform duration-300 border border-slate-700">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+    <span id="toastMsg">Application received successfully!</span>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-10 transition-theme text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <strong class="text-slate-800 dark:text-slate-200 text-sm block">NUET &bull; Nigatola University of Engineering & Technology</strong>
+        <p class="mt-0.5" data-en="Nigatola, Bangladesh &bull; Dedicated to Science, Engineering & Innovation" data-bn="নিগাতোলা, বাংলাদেশ &bull; বিজ্ঞান, প্রযুক্তি ও প্রকৌশল শিক্ষায় নিবেদিত">
+          Nigatola, Bangladesh &bull; Dedicated to Science, Engineering & Innovation
+        </p>
+      </div>
+
+      <div>
+        <button onclick="openApplyModal()" class="px-4 py-2 rounded-xl bg-brand-600 text-white font-bold text-xs shadow hover:bg-brand-700 transition" data-en="Apply Now" data-bn="আবেদন করুন">
+          Apply Now
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= LOGIC SCRIPT ================= -->
+  <script>
+    // State management
+    let currentTheme = localStorage.getItem('nuet-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    let currentLang = localStorage.getItem('nuet-lang') || 'en';
+
+    // Theme (Day / Dark) Function
+    function applyTheme(theme) {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      const themeLabel = document.getElementById('themeLabel');
+
+      if (theme === 'dark') {
+        html.classList.add('dark');
+        themeIcon.className = 'fa-solid fa-moon text-blue-400';
+        themeLabel.innerText = currentLang === 'en' ? 'Niggafication' : 'নিগ্যাফিকেশন';
+      } else {
+        html.classList.remove('dark');
+        themeIcon.className = 'fa-solid fa-sun text-amber-500';
+        themeLabel.innerText = currentLang === 'en' ? 'Diniggafication' : 'ডিগ্যাফিকেশন';
+      }
+      localStorage.setItem('nuet-theme', theme);
+      currentTheme = theme;
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    // Language Toggle (English / বাংলা)
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('nuet-lang', lang);
+      document.getElementById('langLabel').innerText = lang === 'en' ? 'বাংলা' : 'English';
+
+      // Update Day / Dark label text based on active language
+      const themeLabel = document.getElementById('themeLabel');
+      if (currentTheme === 'dark') {
+        themeLabel.innerText = lang === 'en' ? 'Niggafication' : 'নিগ্যাফিকেশন';
+      } else {
+        themeLabel.innerText = lang === 'en' ? 'Diniggafication' : 'ডিগ্যাফিকেশন';
+      }
+
+      // Update all elements with data-en & data-bn
+      document.querySelectorAll('[data-en][data-bn]').forEach(el => {
+        el.innerText = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-bn');
+      });
+    }
+
+    function toggleLanguage() {
+      setLanguage(currentLang === 'en' ? 'bn' : 'en');
+    }
+
+    // Mobile Drawer Navigation
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      menu.classList.toggle('hidden');
+      if (menu.classList.contains('hidden')) {
+        icon.className = 'fa-solid fa-bars text-lg';
+      } else {
+        icon.className = 'fa-solid fa-xmark text-lg';
+      }
+    }
+
+    // Lightbox Controls
+    function openPhoto(src, titleEn, titleBn) {
+      const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImg');
+      const title = document.getElementById('lightboxTitle');
+      const desc = document.getElementById('lightboxDesc');
+
+      img.src = src;
+      img.onerror = function() {
+        this.src = "https://placehold.co/800x500/1e293b/ffffff?text=" + encodeURIComponent(src);
+      };
+
+      title.innerText = currentLang === 'en' ? titleEn : titleBn;
+      desc.innerText = src;
+      modal.classList.remove('hidden');
+    }
+
+    function closePhoto() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+    }
+
+    // Apply Modal Controls
+    function openApplyModal() {
+      document.getElementById('applyModal').classList.remove('hidden');
+    }
+
+    function closeApplyModal() {
+      document.getElementById('applyModal').classList.add('hidden');
+    }
+
+    function handleApplySubmit(e) {
+      e.preventDefault();
+      closeApplyModal();
+      showToast(currentLang === 'en' ? 'Application submitted successfully!' : 'ভর্তি আবেদন সফলভাবে জমা দেওয়া হয়েছে!');
+      e.target.reset();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-28');
+      setTimeout(() => {
+        toast.classList.add('translate-y-28');
+      }, 3500);
+    }
+
+    // Init on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      applyTheme(currentTheme);
+      setLanguage(currentLang);
+    });
+
+    // Close modals on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePhoto();
+        closeApplyModal();
+      }
+    });
+  </script>
+</body>
+</html>
